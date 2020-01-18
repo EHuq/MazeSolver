@@ -1,6 +1,6 @@
 # MazeSolver
 
-Python algorithm to solve a maze 
+Breadth first python algorithm to solve a maze 
 
 #TO DO
 
