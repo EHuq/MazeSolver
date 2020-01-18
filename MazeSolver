@@ -1,0 +1,127 @@
+import queue
+
+def create_maze():
+    maze = []
+    maze.append(["#", "O", "#", "#", "#", "#", "#", "#", "#"])
+    maze.append(["#", " ", "#", " ", " ", " ", " ", " ", "#"])
+    maze.append(["#", " ", "#", " ", " ", "#", "#", " ", "#"])
+    maze.append(["#", " ", "#", " ", " ", "#", "#", " ", "#"])
+    maze.append(["#", " ", "#", " ", "#", " ", "#", " ", "#"])
+    maze.append(["#", " ", "#", " ", "#", " ", " ", " ", "#"])
+    maze.append(["#", " ", "#", " ", "#", " ", "#", " ", "#"])
+    maze.append(["#", " ", " ", " ", " ", " ", " ", " ", "#"])
+    maze.append(["#", "#", "#", "#", "#", "#", "#", "X", "#"])
+    return maze
+
+
+# create maze given start position and the original maze
+
+# def create_maze(xpos, ypos, maze):
+#     for i in len(maze[0]):
+#         for j in len(maze):
+#             if maze[i][j] ==
+#     return maze
+
+
+def print_maze(maze, path=""):
+    for x, pos in enumerate(maze[0]):
+        if pos == "O":
+            start = x
+
+    xpos = start
+    ypos = 0
+    pos = set()
+    for move in path:
+        if move == "L":
+            xpos -= 1
+
+        elif move == "R":
+            xpos += 1
+
+        elif move == "U":
+            ypos -= 1
+
+        elif move == "D":
+            ypos += 1
+        pos.add((ypos, xpos))
+
+    for i, row in enumerate(maze):
+        for j, col in enumerate(row):
+            if (i, j) in pos:
+                print("+ ", end='')
+            else:
+                print(col + " ", end='')
+        print()
+
+
+def isValid(maze, moves):
+    for x, pos in enumerate(maze[0]):
+        if pos == "O":
+            start = x
+
+    xpos = start
+    ypos = 0
+    for move in moves:
+        if move == "L":
+            xpos -= 1
+
+        elif move == "R":
+            xpos += 1
+
+        elif move == "U":
+            ypos -= 1
+
+        elif move == "D":
+            ypos += 1
+
+        if not (0 <= xpos < len(maze[0]) and 0 <= ypos < len(maze)):
+            return False
+        elif maze[ypos][xpos] == "#":
+            return False
+
+    return True
+
+
+def find_end(maze, moves):
+    for x, pos in enumerate(maze[0]):
+        if pos == "O":
+            start = x
+
+    xpos = start
+    ypos = 0
+    for move in moves:
+        if move == "L":
+            xpos -= 1
+
+        elif move == "R":
+            xpos += 1
+
+        elif move == "U":
+            ypos -= 1
+
+        elif move == "D":
+            ypos += 1
+
+    if maze[ypos][xpos] == "X":
+        print("Found: " + moves)
+        print_maze(maze, moves)
+        return True
+
+    return False
+
+#Plan to add more efficient algorithms
+#This one is very inefficient
+def solve_breadth(maze, nums, add):
+    while not find_end(maze, add):
+        add = nums.get()
+        for j in ["L", "R", "U", "D"]:
+            put = add + j
+            if isValid(maze, put):
+                nums.put(put)
+    
+
+nums = queue.Queue()
+nums.put("")
+add = ""
+maze = create_maze()
+solve_breadth(maze, nums, add)
